@@ -169,18 +169,25 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icon(Icons.settings_outlined), label: 'Pengaturan'),
         ],
         onDestinationSelected: (i) {
+          if (i == 0) return;
           if (i == 3) {
-            Navigator.of(context).push(
-              MaterialPageRoute<void>(
-                builder: (context) => const SettingsScreen(),
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const SettingsScreen(),
               ),
             );
-          } else if (i != 0)
+          } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                  content: Text(
-                      'Menu ini akan diaktifkan pada tahap integrasi berikutnya.')),
+              SnackBar(
+                content: Text(
+                  i == 1
+                      ? 'Halaman Proyek sedang disiapkan.'
+                      : 'Halaman Galeri sedang disiapkan.',
+                ),
+              ),
             );
+          }
         },
       ),
     );
